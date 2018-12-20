@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Shouldly" Version="3.0.1" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.Development.json">
+      <DependentUpon>appsettings.json</DependentUpon>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="appsettings.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="appsettings.Production.json">
+      <DependentUpon>appsettings.json</DependentUpon>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\common\src\Jane.Autofac\Jane.Autofac.csproj" />
+    <ProjectReference Include="..\..\..\..\..\common\src\Jane.AutoMapper\Jane.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\..\..\..\common\src\Jane.ENode\Jane.ENode.csproj" />
+    <ProjectReference Include="..\..\..\..\..\common\src\Jane.Log4Net\Jane.Log4Net.csproj" />
+    <ProjectReference Include="..\..\..\..\..\enode\src\ENode.EventStore.MongoDb\ENode.EventStore.MongoDb.csproj" />
+    <ProjectReference Include="..\..\..\..\..\enode\src\ENode.Kafka\ENode.Kafka.csproj" />
+    <ProjectReference Include="..\..\..\..\..\enode\src\ENode.Lock.Redis\ENode.Lock.Redis.csproj" />
+    <ProjectReference Include="..\..\BoundedContext.CommandHandlers\BoundedContext.CommandHandlers.csproj" />
+    <ProjectReference Include="..\..\BoundedContext.MessagePublishers\BoundedContext.MessagePublishers.csproj" />
+    <ProjectReference Include="..\..\BoundedContext.ProcessManagers\BoundedContext.ProcessManagers.csproj" />
+    <ProjectReference Include="..\..\BoundedContext.QueryServices\BoundedContext.QueryServices.csproj" />
+    <ProjectReference Include="..\..\BoundedContext.ReadModel\BoundedContext.ReadModel.csproj" />
+    <ProjectReference Include="..\..\BoundedContext.Repositories.MongoDb\BoundedContext.Repositories.MongoDb.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,68 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Caskia",
+    "classifications": [
+        "Project/ENode"
+    ],
+    "name": "ENode Develop Template",
+    "identity": "ENode.Template",
+    "shortName": "enodetpl",
+    "tags": {
+        "language": "C#",
+        "type": "project"
+    },
+    "sourceName": "BoundedContext",
+    "preferNameDirectory": true,
+    "symbols": {
+        "projectName": {
+            "type": "parameter",
+            "defaultValue": "",
+            "replaces": "ProjectName"
+        },
+        "projectDomain": {
+            "type": "parameter",
+            "defaultValue": "",
+            "replaces": "ProjectDomain"
+        },
+        "jwtIssuer": {
+            "type": "parameter",
+            "defaultValue": "",
+            "replaces": "JwtIssuer"
+        },
+        "jwtAudience": {
+            "type": "parameter",
+            "defaultValue": "",
+            "replaces": "JwtAudience"
+        },
+        "mongoDbDatabaseName": {
+            "type": "parameter",
+            "defaultValue": "",
+            "replaces": "MongoDbDatabaseName"
+        },
+        "mongoDbUserName": {
+            "type": "parameter",
+            "defaultValue": "",
+            "replaces": "MongoDbUserName"
+        },
+        "mongoDbPassword": {
+            "type": "parameter",
+            "defaultValue": "",
+            "replaces": "MongoDbPassword"
+        },
+        "redisLockPrefix": {
+            "type": "parameter",
+            "defaultValue": "",
+            "replaces": "RedisLockPrefix"
+        },
+        "redisPassword": {
+            "type": "parameter",
+            "defaultValue": "",
+            "replaces": "RedisPassword"
+        },
+        "oAuthClientSecret": {
+            "type": "parameter",
+            "defaultValue": "",
+            "replaces": "TPOAuthClientSecret"
+        }
+    }
+}

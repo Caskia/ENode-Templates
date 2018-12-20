@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\common\src\Jane.AutoMapper\Jane.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\..\..\enode\src\ENode.Lock.Redis\ENode.Lock.Redis.csproj" />
+    <ProjectReference Include="..\BoundedContext.BackgroundJobs\BoundedContext.BackgroundJobs.csproj" />
+    <ProjectReference Include="..\BoundedContext.Commands\BoundedContext.Commands.csproj" />
+    <ProjectReference Include="..\BoundedContext.Domain\BoundedContext.Domain.csproj" />
+  </ItemGroup>
+</Project>

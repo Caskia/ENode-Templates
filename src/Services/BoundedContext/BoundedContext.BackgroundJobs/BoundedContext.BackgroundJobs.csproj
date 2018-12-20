@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\common\src\Jane\Jane.csproj" />
+    <ProjectReference Include="..\BoundedContext.Commands\BoundedContext.Commands.csproj" />
+    <ProjectReference Include="..\BoundedContext.QueryServices\BoundedContext.QueryServices.csproj" />
+  </ItemGroup>
+</Project>

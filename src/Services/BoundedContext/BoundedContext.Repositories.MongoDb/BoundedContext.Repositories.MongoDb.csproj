@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\common\src\Jane.MongoDb\Jane.MongoDb.csproj" />
+    <ProjectReference Include="..\BoundedContext.Domain\BoundedContext.Domain.csproj" />
+  </ItemGroup>
+</Project>

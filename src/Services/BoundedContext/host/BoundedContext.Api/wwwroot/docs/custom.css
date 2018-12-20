@@ -1,0 +1,18 @@
+﻿.swagger-ui .topbar-wrapper img[alt="Swagger UI"] {
+    display: none;
+}
+
+.swagger-ui .topbar-wrapper a span {
+    visibility: hidden;
+    padding: 0px;
+}
+
+    .swagger-ui .topbar-wrapper a span:after {
+        content: 'ProjectName';
+        color: #fff;
+        visibility: visible;
+        display: block;
+        position: absolute;
+        padding: 5px 0px;
+        top: 2px;
+    }
