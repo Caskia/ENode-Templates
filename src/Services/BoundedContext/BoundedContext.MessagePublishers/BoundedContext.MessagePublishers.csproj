@@ -3,6 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\common\src\Jane.AutoMapper\Jane.AutoMapper.csproj" />
     <ProjectReference Include="..\BoundedContext.Messages\BoundedContext.Messages.csproj" />
   </ItemGroup>
 </Project>
