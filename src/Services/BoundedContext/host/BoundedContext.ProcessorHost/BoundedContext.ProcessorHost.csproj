@@ -33,7 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\common\src\Jane.Autofac\Jane.Autofac.csproj" />
     <ProjectReference Include="..\..\..\..\..\common\src\Jane.AutoMapper\Jane.AutoMapper.csproj" />
     <ProjectReference Include="..\..\..\..\..\common\src\Jane.ENode\Jane.ENode.csproj" />
     <ProjectReference Include="..\..\..\..\..\common\src\Jane.Log4Net\Jane.Log4Net.csproj" />
