@@ -79,6 +79,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ENode.AggregateSnapshot", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ENode.Store.MongoDb", "enode\src\ENode.Store.MongoDb\ENode.Store.MongoDb.csproj", "{CEF85332-D258-4FF6-9B88-F286DB1F244D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ENode.AggregateSnapshot.MySql", "enode\src\ENode.AggregateSnapshot.MySql\ENode.AggregateSnapshot.MySql.csproj", "{16B5CBD9-F5E3-4191-89BF-90FDBECE7273}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ENode.AggregateSnapshot.MongoDb", "enode\src\ENode.AggregateSnapshot.MongoDb\ENode.AggregateSnapshot.MongoDb.csproj", "{CC13D1ED-1433-4E81-95F8-787AF325DBD6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -205,6 +209,14 @@ Global
 		{CEF85332-D258-4FF6-9B88-F286DB1F244D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEF85332-D258-4FF6-9B88-F286DB1F244D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEF85332-D258-4FF6-9B88-F286DB1F244D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16B5CBD9-F5E3-4191-89BF-90FDBECE7273}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16B5CBD9-F5E3-4191-89BF-90FDBECE7273}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16B5CBD9-F5E3-4191-89BF-90FDBECE7273}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16B5CBD9-F5E3-4191-89BF-90FDBECE7273}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC13D1ED-1433-4E81-95F8-787AF325DBD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC13D1ED-1433-4E81-95F8-787AF325DBD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC13D1ED-1433-4E81-95F8-787AF325DBD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC13D1ED-1433-4E81-95F8-787AF325DBD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -244,6 +256,8 @@ Global
 		{85C4163D-238B-405C-B240-25D42D1DDC1D} = {D8FAD1B4-2CE7-40F8-8BA4-DBDD2CEEDC14}
 		{909957E0-6E79-4D76-9A0F-5AB05B3A2815} = {1527D723-2BD1-4BFB-94BE-86EED104EFB7}
 		{CEF85332-D258-4FF6-9B88-F286DB1F244D} = {1527D723-2BD1-4BFB-94BE-86EED104EFB7}
+		{16B5CBD9-F5E3-4191-89BF-90FDBECE7273} = {1527D723-2BD1-4BFB-94BE-86EED104EFB7}
+		{CC13D1ED-1433-4E81-95F8-787AF325DBD6} = {1527D723-2BD1-4BFB-94BE-86EED104EFB7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {724B3E54-B873-4915-AED1-6403E4A5BC08}

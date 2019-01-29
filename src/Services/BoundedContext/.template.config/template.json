@@ -49,6 +49,21 @@
             "defaultValue": "",
             "replaces": "MongoDbPassword"
         },
+        "mySqlDatabaseName": {
+            "type": "parameter",
+            "defaultValue": "",
+            "replaces": "MySqlDatabaseName"
+        },
+        "mySqlUserName": {
+            "type": "parameter",
+            "defaultValue": "",
+            "replaces": "MySqlUserName"
+        },
+        "mySqlPassword": {
+            "type": "parameter",
+            "defaultValue": "",
+            "replaces": "MySqlPassword"
+        },
         "redisLockPrefix": {
             "type": "parameter",
             "defaultValue": "",

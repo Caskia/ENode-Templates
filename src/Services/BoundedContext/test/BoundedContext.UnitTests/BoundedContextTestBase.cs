@@ -76,7 +76,7 @@ namespace BoundedContext.UnitTests
                .UseRedisLockService()
                .UseMongoDbEventStore()
                .UseMongoDbPublishedVersionStore()
-               .UseMongoDbAggregateSnapshotter()
+               .UseMySqlAggregateSnapshotter()
                .UseKafka()
                .BuildENodeContainer()
                .InitializeBusinessAssemblies(_bussinessAssemblies);
@@ -104,12 +104,10 @@ namespace BoundedContext.UnitTests
                     DatabaseName = enodeConfig.EventStoreDatabaseName
                 },
                 "BoundedContextPublishedVersion")
-                .InitializeMongoDbAggregateSnapshotter(new ENode.Configurations.MongoDbConfiguration()
-                {
-                    ConnectionString = enodeConfig.EventStoreConnectionString,
-                    DatabaseName = enodeConfig.EventStoreDatabaseName
-                },
-                storeEntityName: "BoundedContextAggregateSnapshot")
+                .InitializeMySqlAggregateSnapshotter(
+                    enodeConfig.AggregateSnapshotConnectionString,
+                    "BoundedContextAggregateSnapshot"
+                )
                 .StartKafka()
                 .Start();
 

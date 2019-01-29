@@ -82,7 +82,7 @@ namespace BoundedContext.ProcessorHost
                 .UseRedisLockService()
                 .UseMongoDbEventStore()
                 .UseMongoDbPublishedVersionStore()
-                .UseMongoDbAggregateSnapshotter()
+                .UseMySqlAggregateSnapshotter()
                 .UseKafka()
                 .BuildENodeContainer()
                 .InitializeBusinessAssemblies(_bussinessAssemblies);
@@ -109,12 +109,10 @@ namespace BoundedContext.ProcessorHost
                     DatabaseName = enodeConfig.EventStoreDatabaseName
                 },
                 "BoundedContextPublishedVersion")
-                 .InitializeMongoDbAggregateSnapshotter(new ENode.Configurations.MongoDbConfiguration()
-                 {
-                     ConnectionString = enodeConfig.EventStoreConnectionString,
-                     DatabaseName = enodeConfig.EventStoreDatabaseName
-                 },
-                storeEntityName: "BoundedContextAggregateSnapshot");
+                .InitializeMySqlAggregateSnapshotter(
+                    enodeConfig.AggregateSnapshotConnectionString,
+                    "BoundedContextAggregateSnapshot"
+                );
 
             //Config Exceptionless
             if (JaneEnvironment.IsProduction() && !JaneConfiguration.Instance.Root["Exceptionless:ApiKey"].IsNullOrEmpty())
