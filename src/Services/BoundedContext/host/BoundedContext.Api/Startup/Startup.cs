@@ -151,7 +151,6 @@ namespace BoundedContext.Api
                         ConventionRegistry.Register("EnumStringConvention", pack, t => true);
                         BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
                         BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
-                        BsonSerializer.RegisterSerializer(typeof(JObject), new JObjectSerializer());
                     })
                  .UseRedis()
                  .LoadKafkaConfiguration()
