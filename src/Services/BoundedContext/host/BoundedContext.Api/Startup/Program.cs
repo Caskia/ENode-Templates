@@ -7,7 +7,7 @@ namespace BoundedContext.Api
     {
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
                     WebHost.CreateDefaultBuilder(args)
-                        .UseKestrel(options =>
+                        .ConfigureKestrel(options =>
                         {
                             options.AddServerHeader = false;
                         })

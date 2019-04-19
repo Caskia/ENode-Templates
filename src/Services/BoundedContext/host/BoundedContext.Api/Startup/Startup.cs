@@ -94,7 +94,7 @@ namespace BoundedContext.Api
             {
                 options.Filters.Add(new CorsAuthorizationFilterFactory(CorsPolicyNames.DefaultCorsPolicyName));
             })
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             //Configure Auth
             services
