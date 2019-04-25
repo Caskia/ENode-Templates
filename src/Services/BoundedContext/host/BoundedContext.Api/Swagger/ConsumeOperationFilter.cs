@@ -11,7 +11,9 @@ namespace BoundedContext.Api.Swagger
         {
             var consumes = operation.Consumes;
             consumes.Clear();
-            var consumesAttributes = context.ApiDescription.ActionAttributes().OfType<ConsumesAttribute>();
+            var consumesAttributes = context.MethodInfo.DeclaringType.GetCustomAttributes(true)
+                        .Union(context.MethodInfo.GetCustomAttributes(true))
+                        .OfType<ConsumesAttribute>();
             foreach (var contentType in consumesAttributes.SelectMany(a => a.ContentTypes))
             {
                 consumes.Add(contentType);

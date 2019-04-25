@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,11 +18,9 @@ namespace BoundedContext.Api.Swagger
 
         public void Apply(Operation operation, OperationFilterContext context)
         {
-            var controllerAuthorize = context.ApiDescription.ControllerAttributes().OfType<AuthorizeAttribute>().Cast<Attribute>();
-            //var janeControllerAuthorize = context.ApiDescription.ControllerAttributes().OfType<JaneAuthorizeAttribute>().Cast<Attribute>();
-            var actionAuthorize = context.ApiDescription.ActionAttributes().OfType<AuthorizeAttribute>().Cast<Attribute>();
-            //var janeActionAuthorize = context.ApiDescription.ActionAttributes().OfType<JaneAuthorizeAttribute>().Cast<Attribute>();
-            var authorizes = controllerAuthorize/*.Union(janeControllerAuthorize)*/.Union(actionAuthorize)/*.Union(janeActionAuthorize)*/.Distinct();
+            var authorizes = context.MethodInfo.DeclaringType.GetCustomAttributes(true)
+            .Union(context.MethodInfo.GetCustomAttributes(true))
+            .OfType<AuthorizeAttribute>();
             if (authorizes.Any())
             {
                 operation.Responses.Add("401", new Response { Description = "Unauthorized" });
