@@ -138,6 +138,7 @@ namespace BoundedContext.ProcessorHost
                 Assembly.Load("BoundedContext.QueryServices"),
                 Assembly.Load("BoundedContext.ReadModel"),
                 Assembly.Load("BoundedContext.Repositories.MongoDb"),
+                Assembly.Load("BoundedContext.BackgroundJobs"),
                 Assembly.GetExecutingAssembly()
             };
 

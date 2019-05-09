@@ -7,13 +7,11 @@ using ENode.Configurations;
 using ENode.EventStore.MongoDb;
 using ENode.Lock.Redis;
 using Jane.Configurations;
-using Jane.MongoDb.Serializers;
 using Jane.Timing;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Reflection;
 using System.Threading;
@@ -127,6 +125,7 @@ namespace BoundedContext.UnitTests
                 Assembly.Load("BoundedContext.QueryServices"),
                 Assembly.Load("BoundedContext.ReadModel"),
                 Assembly.Load("BoundedContext.Repositories.MongoDb"),
+                Assembly.Load("BoundedContext.BackgroundJobs"),
                 Assembly.GetExecutingAssembly()
             };
 
