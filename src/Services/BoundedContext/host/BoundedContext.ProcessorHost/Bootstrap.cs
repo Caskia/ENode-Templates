@@ -129,16 +129,16 @@ namespace BoundedContext.ProcessorHost
         {
             _bussinessAssemblies = new[]
             {
-                Assembly.Load("BoundedContext.BackgroundJobs"),
                 Assembly.Load("BoundedContext.CommandHandlers"),
                 Assembly.Load("BoundedContext.Commands"),
                 Assembly.Load("BoundedContext.Domain"),
-                Assembly.Load("BoundedContext.MessagePublishers"),
                 Assembly.Load("BoundedContext.Messages"),
-                Assembly.Load("BoundedContext.ProcessManagers"),
-                Assembly.Load("BoundedContext.QueryServices"),
-                Assembly.Load("BoundedContext.ReadModel"),
                 Assembly.Load("BoundedContext.Repositories.MongoDb"),
+                Assembly.Load("BoundedContext.ReadModel"),
+                Assembly.Load("BoundedContext.QueryServices"),
+                Assembly.Load("BoundedContext.ProcessManagers"),
+                Assembly.Load("BoundedContext.MessagePublishers"),
+                Assembly.Load("BoundedContext.BackgroundJobs"),
                 Assembly.GetExecutingAssembly()
             };
 

@@ -1,5 +1,4 @@
 ﻿using BoundedContext.Api.Swagger;
-using ECommon.Components;
 using ENode.Configurations;
 using Exceptionless;
 using Jane.AspNetCore.Authentication;
@@ -7,7 +6,6 @@ using Jane.AspNetCore.Authentication.JwtBearer;
 using Jane.AspNetCore.Cors;
 using Jane.Configurations;
 using Jane.Extensions;
-using Jane.MongoDb.Serializers;
 using Jane.Timing;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -20,7 +18,6 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Reflection;
 using JaneConfiguration = Jane.Configurations.Configuration;
@@ -121,16 +118,16 @@ namespace BoundedContext.Api
             _bussinessAssemblies = new[]
             {
                 Assembly.Load("BoundedContext.Commands"),
-                Assembly.Load("BoundedContext.QueryServices"),
-                Assembly.Load("BoundedContext.ReadModel"),
                 Assembly.Load("BoundedContext.Repositories.MongoDb"),
+                Assembly.Load("BoundedContext.ReadModel"),
+                Assembly.Load("BoundedContext.QueryServices"),
                 Assembly.GetExecutingAssembly()
             };
 
             var autoMapperConfigurationAssemblies = new[]
             {
-                Assembly.Load("BoundedContext.QueryServices"),
                 Assembly.Load("BoundedContext.ReadModel"),
+                Assembly.Load("BoundedContext.QueryServices"),
                 Assembly.GetExecutingAssembly()
             };
 
