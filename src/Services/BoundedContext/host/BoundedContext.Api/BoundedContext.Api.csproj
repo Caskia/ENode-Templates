@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\index.html" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="Swagger\CustomUI\index.html" />
   </ItemGroup>
 

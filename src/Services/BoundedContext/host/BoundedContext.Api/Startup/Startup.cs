@@ -10,6 +10,7 @@ using Jane.Timing;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.AspNetCore.Rewrite;
@@ -55,20 +56,36 @@ namespace BoundedContext.Api
 
             app.UseJwtTokenMiddleware();
 
-            var rewriteOptions = new RewriteOptions()
-                .AddRewrite("^docs/index", "docs/index.html", false)
-                .AddRedirect("^$", "docs/index");
-            //.AddRedirectToProxiedHttps();
-
-            app.UseRewriter(rewriteOptions);
-
             app.UseMvcWithDefaultRoute();
 
-            // Enable middleware to serve generated Swagger as a JSON endpoint
-            app.UseSwagger(options => { options.SetupSwaggerOptions(); });
+            if (!env.IsProduction())
+            {
+                var rewriteOptions = new RewriteOptions()
+                .AddRewrite("^docs/index", "docs/index.html", false)
+                .AddRedirect("^$", "docs/index");
 
-            // Enable middleware to serve swagger-ui assets (HTML, JS, CSS etc.)
-            app.UseSwaggerUI(options => { options.SetupSwaggerUIOptions(); });
+                app.UseRewriter(rewriteOptions);
+
+                // Enable middleware to serve generated Swagger as a JSON endpoint
+                app.UseSwagger(options => { options.SetupSwaggerOptions(); });
+
+                // Enable middleware to serve swagger-ui assets (HTML, JS, CSS etc.)
+                app.UseSwaggerUI(options => { options.SetupSwaggerUIOptions(); });
+            }
+            else
+            {
+                app.MapWhen(context =>
+                {
+                    return context.Request.Path == "/";
+                },
+                application =>
+                {
+                    application.Run(async context =>
+                    {
+                        await context.Response.WriteAsync("ProjectName BoundedContext Api");
+                    });
+                });
+            }
         }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
