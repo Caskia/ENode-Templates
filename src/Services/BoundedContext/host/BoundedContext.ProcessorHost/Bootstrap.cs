@@ -11,6 +11,7 @@ using Jane.Configurations;
 using Jane.Extensions;
 using Jane.MongoDb.Serializers;
 using Jane.Timing;
+using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
@@ -70,7 +71,11 @@ namespace BoundedContext.ProcessorHost
 
         private void InitializeENode()
         {
-            _enodeConfiguration = InitializeJane()
+            var janeConfiguration = InitializeJane();
+
+            var services = new ServiceCollection();
+
+            _enodeConfiguration = janeConfiguration
                 .CreateECommon()
                 .CreateENode(new ConfigurationSetting()
                 {
@@ -84,7 +89,7 @@ namespace BoundedContext.ProcessorHost
                 .UseMongoDbPublishedVersionStore()
                 .UseMySqlAggregateSnapshotter()
                 .UseKafka()
-                .BuildENodeContainer()
+                .BuildENodeContainer(services)
                 .InitializeBusinessAssemblies(_bussinessAssemblies);
 
             JaneConfiguration.Instance.CreateAutoMapperMappings();

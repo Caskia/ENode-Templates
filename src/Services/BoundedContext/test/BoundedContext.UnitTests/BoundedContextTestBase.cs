@@ -8,6 +8,7 @@ using ENode.EventStore.MongoDb;
 using ENode.Lock.Redis;
 using Jane.Configurations;
 using Jane.Timing;
+using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
@@ -66,7 +67,11 @@ namespace BoundedContext.UnitTests
 
         private void InitializeENode()
         {
-            _enodeConfiguration = InitializeJane()
+            var janeConfiguration = InitializeJane();
+
+            var services = new ServiceCollection();
+
+            _enodeConfiguration = janeConfiguration
                .CreateECommon()
                .CreateENode(new ConfigurationSetting())
                .RegisterENodeComponents()
@@ -76,7 +81,7 @@ namespace BoundedContext.UnitTests
                .UseMongoDbPublishedVersionStore()
                .UseMySqlAggregateSnapshotter()
                .UseKafka()
-               .BuildENodeContainer()
+               .BuildENodeContainer(services)
                .InitializeBusinessAssemblies(_bussinessAssemblies);
 
             JaneConfiguration.Instance.CreateAutoMapperMappings();
