@@ -7,6 +7,7 @@ using ENode.Configurations;
 using ENode.EventStore.MongoDb;
 using ENode.Lock.Redis;
 using Jane.Configurations;
+using Jane.MongoDb.Serializers;
 using Jane.Timing;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;
@@ -14,6 +15,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -158,6 +160,7 @@ namespace BoundedContext.UnitTests
                        ConventionRegistry.Register("EnumStringConvention", pack, t => true);
                        try
                        {
+                           BsonSerializer.RegisterSerializer(typeof(Dictionary<string, object>), new ObjectDictionarySerializer());
                            BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
                            BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
                        }

@@ -16,8 +16,8 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
-using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using JaneConfiguration = Jane.Configurations.Configuration;
 
@@ -168,6 +168,7 @@ namespace BoundedContext.ProcessorHost
                             new EnumRepresentationConvention(BsonType.String)
                         };
                         ConventionRegistry.Register("EnumStringConvention", pack, t => true);
+                        BsonSerializer.RegisterSerializer(typeof(Dictionary<string, object>), new ObjectDictionarySerializer());
                         BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
                         BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
                     })

@@ -6,6 +6,7 @@ using Jane.AspNetCore.Authentication.JwtBearer;
 using Jane.AspNetCore.Cors;
 using Jane.Configurations;
 using Jane.Extensions;
+using Jane.MongoDb.Serializers;
 using Jane.Timing;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -20,6 +21,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using JaneConfiguration = Jane.Configurations.Configuration;
 
@@ -163,6 +165,7 @@ namespace BoundedContext.Api
                             new EnumRepresentationConvention(BsonType.String)
                         };
                         ConventionRegistry.Register("EnumStringConvention", pack, t => true);
+                        BsonSerializer.RegisterSerializer(typeof(Dictionary<string, object>), new ObjectDictionarySerializer());
                         BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
                         BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
                     })
