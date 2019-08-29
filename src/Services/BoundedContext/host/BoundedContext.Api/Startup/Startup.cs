@@ -1,4 +1,5 @@
-﻿using BoundedContext.Api.Swagger;
+﻿using Autofac;
+using BoundedContext.Api.Swagger;
 using ENode.Configurations;
 using Exceptionless;
 using Jane.AspNetCore.Authentication;
@@ -12,15 +13,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
-using System;
 using System.Collections.Generic;
 using System.Reflection;
 using JaneConfiguration = Jane.Configurations.Configuration;
@@ -48,7 +46,7 @@ namespace BoundedContext.Api
 
             app.UseHostNameHeader();
 
-            app.UseJane();
+            app.UseJaneENode();
 
             app.UseDefaultFiles();
 
@@ -58,7 +56,18 @@ namespace BoundedContext.Api
 
             app.UseJwtTokenMiddleware();
 
-            app.UseMvcWithDefaultRoute();
+            app.UseRouting();
+
+            app.UseCors(CorsPolicyNames.DefaultCorsPolicyName);
+
+            app.UseAuthentication();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapDefaultControllerRoute();
+            });
 
             if (!env.IsProduction())
             {
@@ -88,51 +97,16 @@ namespace BoundedContext.Api
                     });
                 });
             }
-        }
-
-        public IServiceProvider ConfigureServices(IServiceCollection services)
-        {
-            //Configure ENode
-            var enodeConfiguration = InitializeJane()
-                .CreateECommon()
-                .CreateENode(new ConfigurationSetting())
-                .RegisterENodeComponents()
-                .RegisterBusinessComponents(_bussinessAssemblies)
-                .UseKafka();
-
-            //Compression
-            services.AddResponseCompression();
-
-            //Configure CORS for application
-            services.AddCorsPolicy(JaneConfiguration.Instance.Root);
-
-            services.AddMvc(options =>
-            {
-                options.Filters.Add(new CorsAuthorizationFilterFactory(CorsPolicyNames.DefaultCorsPolicyName));
-            })
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            //Configure Auth
-            services
-                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .ConfigureJwtBearer(JaneConfiguration.Instance.Root);
-
-            //Swagger
-            services.AddSwaggerGen(options => { options.SetupSwaggerGenOptions(JaneConfiguration.Instance.Root); });
-
-            //Configure ENode AspNetCore
-            enodeConfiguration
-                .UseENodeAspNetCore(services, out var serviceProvider)
-                .InitializeBusinessAssemblies(_bussinessAssemblies)
-                .StartKafka()
-                .Start();
 
             JaneConfiguration.Instance.CreateAutoMapperMappings();
 
-            return serviceProvider;
+            ENodeConfiguration.Instance
+                    .InitializeBusinessAssemblies(_bussinessAssemblies)
+                    .StartKafka()
+                    .Start();
         }
 
-        private JaneConfiguration InitializeJane()
+        public void ConfigureContainer(ContainerBuilder builder)
         {
             _bussinessAssemblies = new[]
             {
@@ -150,15 +124,15 @@ namespace BoundedContext.Api
                 Assembly.GetExecutingAssembly()
             };
 
-            return JaneConfiguration.Create()
-                 .UseAutofac()
-                 .RegisterCommonComponents()
-                 .RegisterAssemblies(_bussinessAssemblies)
-                 .UseAspNetCore()
-                 .UseLog4Net()
-                 .UseClockProvider(ClockProviders.Utc)
-                 .UseAutoMapper(autoMapperConfigurationAssemblies)
-                 .UseMongoDb(() =>
+            JaneConfiguration.Instance
+                    .UseAutofac(builder)
+                    .RegisterCommonComponents()
+                    .RegisterAssemblies(_bussinessAssemblies)
+                    .UseAspNetCore()
+                    .UseLog4Net()
+                    .UseClockProvider(ClockProviders.Utc)
+                    .UseAutoMapper(autoMapperConfigurationAssemblies)
+                    .UseMongoDb(() =>
                     {
                         var pack = new ConventionPack
                         {
@@ -169,10 +143,39 @@ namespace BoundedContext.Api
                         BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
                         BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
                     })
-                 .UseRedis()
-                 .LoadKafkaConfiguration()
-                 .LoadENodeConfiguration()
-                 .RegisterUnhandledExceptionHandler();
+                    .UseRedis()
+                    .LoadKafkaConfiguration()
+                    .LoadENodeConfiguration()
+                    .RegisterUnhandledExceptionHandler()
+                    .CreateECommon(builder)
+                    .CreateENode(new ConfigurationSetting())
+                    .RegisterENodeComponents()
+                    .RegisterBusinessComponents(_bussinessAssemblies)
+                    .UseKafka();
+        }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            //Configure Jane
+            JaneConfiguration.Create();
+            services.AddJaneAspNetCore();
+
+            //Compression
+            services.AddResponseCompression();
+
+            //Configure CORS for application
+            services.AddCorsPolicy(JaneConfiguration.Instance.Root);
+
+            services.AddControllers()
+                .AddNewtonsoftJson();
+
+            //Configure Auth
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .ConfigureJwtBearer(JaneConfiguration.Instance.Root);
+
+            //Swagger
+            services.AddSwaggerGen(options => { options.SetupSwaggerGenOptions(JaneConfiguration.Instance.Root); });
         }
     }
 }
