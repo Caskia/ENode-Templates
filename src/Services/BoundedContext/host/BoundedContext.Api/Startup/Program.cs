@@ -8,7 +8,7 @@ namespace BoundedContext.Api
     {
         public static IHostBuilder CreateHostBuilder(string[] args) =>
                         Host.CreateDefaultBuilder(args)
-                        .UseAutofac()
+                        .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                         .ConfigureWebHostDefaults(webBuilder =>
                         {
                             webBuilder.UseKestrel(options =>
