@@ -1,4 +1,4 @@
-﻿using Swashbuckle.AspNetCore.Swagger;
+﻿using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -7,9 +7,9 @@ namespace BoundedContext.Api.Swagger
 {
     public class ApplyDocumentVendorFilter : IDocumentFilter
     {
-        public void Apply(SwaggerDocument swaggerDoc, DocumentFilterContext context)
+        public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
         {
-            var needToRemove = new List<KeyValuePair<string, PathItem>>();
+            var needToRemove = new List<KeyValuePair<string, OpenApiPathItem>>();
 
             //upper paths
             Regex parameterRegex = new Regex(@"{\w+}");

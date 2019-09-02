@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
-using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,22 +16,31 @@ namespace BoundedContext.Api.Swagger
             this.authorizationOptions = authorizationOptions;
         }
 
-        public void Apply(Operation operation, OperationFilterContext context)
+        public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
-            var authorizes = context.MethodInfo.DeclaringType.GetCustomAttributes(true)
-            .Union(context.MethodInfo.GetCustomAttributes(true))
-            .OfType<AuthorizeAttribute>();
-            if (authorizes.Any())
-            {
-                operation.Responses.Add("401", new Response { Description = "Unauthorized" });
-                operation.Responses.Add("403", new Response { Description = "Forbidden" });
+            var requiredScopes = context.MethodInfo.DeclaringType.GetCustomAttributes(true)
+                    .Union(context.MethodInfo.GetCustomAttributes(true))
+                    .OfType<AuthorizeAttribute>()
+                    .Select(attr => attr.Policy)
+                    .Distinct();
 
-                operation.Security = new List<IDictionary<string, IEnumerable<string>>>();
-                operation.Security.Add(
-                    new Dictionary<string, IEnumerable<string>>
+            if (requiredScopes.Any())
+            {
+                operation.Responses.Add("401", new OpenApiResponse { Description = "Unauthorized" });
+                operation.Responses.Add("403", new OpenApiResponse { Description = "Forbidden" });
+
+                var oAuthScheme = new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                };
+
+                operation.Security = new List<OpenApiSecurityRequirement>()
+                {
+                    new OpenApiSecurityRequirement()
                     {
-                        { "Bearer", new List<string>() }
-                    });
+                        [ oAuthScheme ] = requiredScopes.ToList()
+                    }
+                };
             }
         }
     }

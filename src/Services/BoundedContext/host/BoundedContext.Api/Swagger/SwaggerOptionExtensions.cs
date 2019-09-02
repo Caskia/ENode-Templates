@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
@@ -15,8 +16,8 @@ namespace BoundedContext.Api.Swagger
     {
         public static void SetupSwaggerGenOptions(this SwaggerGenOptions options, IConfigurationRoot appConfiguration)
         {
-            options.SwaggerDoc("v1", new Info { Title = "ProjectName BoundedContext Api Explorer", Version = "1" });
-            options.SwaggerDoc("admin-v1", new Info { Title = "ProjectName BoundedContext Admin Api Explorer", Version = "1" });
+            options.SwaggerDoc("v1", new OpenApiInfo { Title = "ProjectName BoundedContext Api Explorer", Version = "1" });
+            options.SwaggerDoc("admin-v1", new OpenApiInfo { Title = "ProjectName BoundedContext Admin Api Explorer", Version = "1" });
 
             options.DocInclusionPredicate((docName, description) =>
             {
@@ -35,23 +36,20 @@ namespace BoundedContext.Api.Swagger
                 }
                 return true;
             });
-            options.AddSecurityDefinition("Bearer", new OAuth2Scheme
+            options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
-                Type = "oauth2",
+                Type = SecuritySchemeType.OAuth2,
                 Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-                TokenUrl = appConfiguration["IdentityServer:TokenUrl"],
-                Flow = "password"
+                Flows = new OpenApiOAuthFlows
+                {
+                    Password = new OpenApiOAuthFlow()
+                    {
+                        TokenUrl = new Uri(appConfiguration["IdentityServer:TokenUrl"]),
+                    }
+                }
             });
-            //options.AddSecurityDefinition("Bearer", new ApiKeyScheme
-            //{
-            //    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-            //    Name = "Authorization",
-            //    In = "header",
-            //    Type = "apiKey",
-            //});
             options.IncludeXmlComments(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BoundedContext.Api.xml"));
             options.OperationFilter<SecurityRequirementsOperationFilter>();
-            options.OperationFilter<ConsumeOperationFilter>();
             options.DocumentFilter<ApplyDocumentVendorFilter>();
         }
 

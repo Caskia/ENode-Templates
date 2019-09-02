@@ -1,22 +1,27 @@
-﻿using Microsoft.AspNetCore;
+﻿using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace BoundedContext.Api
 {
     public class Program
     {
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-                    WebHost.CreateDefaultBuilder(args)
-                        .ConfigureKestrel(options =>
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+                        Host.CreateDefaultBuilder(args)
+                        .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                        .ConfigureWebHostDefaults(webBuilder =>
                         {
-                            options.AddServerHeader = false;
-                        })
-                        .UseUrls("http://0.0.0.0:5001")
-                        .UseStartup<Startup>();
+                            webBuilder.UseKestrel(options =>
+                            {
+                                options.AddServerHeader = false;
+                            })
+                            .UseUrls("http://0.0.0.0:5001")
+                            .UseStartup<Startup>();
+                        });
 
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            CreateHostBuilder(args).Build().Run();
         }
     }
 }
