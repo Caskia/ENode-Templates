@@ -1,6 +1,8 @@
 [submodule "common"]
 	path = common
 	url = https://github.com/Caskia/Jane.git
+	branch = master
 [submodule "enode"]
 	path = enode
 	url = https://github.com/Caskia/ENode-Infrastructure.git
+	branch = master
