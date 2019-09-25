@@ -35,7 +35,7 @@
 
   <ItemGroup>
     <PackageReference Include="Exceptionless.Log4net" Version="4.3.2027" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.0.0-preview8.19405.4" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
