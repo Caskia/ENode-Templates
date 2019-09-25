@@ -6,5 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BoundedContext.ReadModel\BoundedContext.ReadModel.csproj" />
+    <ProjectReference Include="..\BoundedContext.Repositories.MongoDb\BoundedContext.Repositories.MongoDb.csproj" />
   </ItemGroup>
 </Project>

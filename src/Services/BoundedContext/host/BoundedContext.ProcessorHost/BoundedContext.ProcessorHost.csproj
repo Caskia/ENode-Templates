@@ -50,8 +50,6 @@
     <ProjectReference Include="..\..\BoundedContext.MessagePublishers\BoundedContext.MessagePublishers.csproj" />
     <ProjectReference Include="..\..\BoundedContext.ProcessManagers\BoundedContext.ProcessManagers.csproj" />
     <ProjectReference Include="..\..\BoundedContext.QueryServices\BoundedContext.QueryServices.csproj" />
-    <ProjectReference Include="..\..\BoundedContext.ReadModel\BoundedContext.ReadModel.csproj" />
-    <ProjectReference Include="..\..\BoundedContext.Repositories.MongoDb\BoundedContext.Repositories.MongoDb.csproj" />
   </ItemGroup>
 
   <ItemGroup>
