@@ -49,7 +49,6 @@
     <ProjectReference Include="..\..\BoundedContext.CommandHandlers\BoundedContext.CommandHandlers.csproj" />
     <ProjectReference Include="..\..\BoundedContext.MessagePublishers\BoundedContext.MessagePublishers.csproj" />
     <ProjectReference Include="..\..\BoundedContext.ProcessManagers\BoundedContext.ProcessManagers.csproj" />
-    <ProjectReference Include="..\..\BoundedContext.QueryServices\BoundedContext.QueryServices.csproj" />
   </ItemGroup>
 
   <ItemGroup>

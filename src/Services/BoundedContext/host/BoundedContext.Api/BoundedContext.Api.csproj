@@ -37,7 +37,6 @@
     <ProjectReference Include="..\..\..\..\..\enode\src\ENode.Kafka\ENode.Kafka.csproj" />
     <ProjectReference Include="..\..\BoundedContext.Commands\BoundedContext.Commands.csproj" />
     <ProjectReference Include="..\..\BoundedContext.QueryServices\BoundedContext.QueryServices.csproj" />
-    <ProjectReference Include="..\..\BoundedContext.Repositories.MongoDb\BoundedContext.Repositories.MongoDb.csproj" />
   </ItemGroup>
 
   <ItemGroup>

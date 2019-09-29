@@ -5,7 +5,6 @@
   <ItemGroup>
     <ProjectReference Include="..\BoundedContext.BackgroundJobs\BoundedContext.BackgroundJobs.csproj" />
     <ProjectReference Include="..\BoundedContext.Commands\BoundedContext.Commands.csproj" />
-    <ProjectReference Include="..\BoundedContext.Domain\BoundedContext.Domain.csproj" />
-    <ProjectReference Include="..\BoundedContext.Repositories.MongoDb\BoundedContext.Repositories.MongoDb.csproj" />
+    <ProjectReference Include="..\BoundedContext.QueryServices\BoundedContext.QueryServices.csproj" />
   </ItemGroup>
 </Project>
