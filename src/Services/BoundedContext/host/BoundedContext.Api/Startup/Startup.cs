@@ -5,6 +5,7 @@ using Exceptionless;
 using Jane.AspNetCore.Authentication;
 using Jane.AspNetCore.Authentication.JwtBearer;
 using Jane.AspNetCore.Cors;
+using Jane.AspNetCore.Mvc;
 using Jane.Configurations;
 using Jane.Extensions;
 using Jane.MongoDb.Serializers;
@@ -167,7 +168,7 @@ namespace BoundedContext.Api
             services.AddCorsPolicy(JaneConfiguration.Instance.Root);
 
             services.AddControllers()
-                .AddNewtonsoftJson();
+                .AddJaneJsonOptions();
 
             //Configure Auth
             services
