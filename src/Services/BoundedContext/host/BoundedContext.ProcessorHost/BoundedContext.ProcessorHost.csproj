@@ -26,7 +26,7 @@
       <DependentUpon>appsettings.json</DependentUpon>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="appsettings.Stage.json">
+    <Content Include="appsettings.Staging.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>appsettings.json</DependentUpon>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
