@@ -1,5 +1,4 @@
-﻿using BoundedContext.Topic;
-using ECommon.Components;
+﻿using ECommon.Components;
 using ENode.Commanding;
 using ENode.Kafka;
 

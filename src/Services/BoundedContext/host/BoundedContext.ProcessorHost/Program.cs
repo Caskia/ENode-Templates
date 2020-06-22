@@ -50,7 +50,8 @@ namespace BoundedContext.ProcessorHost
             {
                 Assembly.Load("BoundedContext.CommandHandlers"),
                 Assembly.Load("BoundedContext.QueryServices"),
-                Assembly.Load("BoundedContext.ReadModel")
+                Assembly.Load("BoundedContext.ReadModel"),
+                Assembly.Load("BoundedContext.MessagePublishers")
             };
 
             var host = new HostBuilder()

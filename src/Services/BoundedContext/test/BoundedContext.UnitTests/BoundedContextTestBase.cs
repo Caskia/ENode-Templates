@@ -1,5 +1,4 @@
 ﻿using ECommon.Components;
-using ECommon.IO;
 using ENode.Commanding;
 using System.Threading.Tasks;
 using Xunit;
@@ -19,7 +18,7 @@ namespace BoundedContext.UnitTests
             _idGenerator = ObjectContainer.Resolve<Jane.IIdGenerator>();
         }
 
-        protected Task<AsyncTaskResult<CommandResult>> ExecuteCommandAsync(ICommand command)
+        protected Task<CommandResult> ExecuteCommandAsync(ICommand command)
         {
             return _commandService.ExecuteAsync(command, CommandReturnType.EventHandled);
         }

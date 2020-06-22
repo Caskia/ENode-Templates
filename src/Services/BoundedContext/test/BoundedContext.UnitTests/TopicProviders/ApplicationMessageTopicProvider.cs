@@ -1,6 +1,6 @@
 ﻿using ECommon.Components;
-using ENode.Infrastructure;
 using ENode.Kafka;
+using ENode.Messaging;
 
 namespace BoundedContext.UnitTests.TopicProviders
 {

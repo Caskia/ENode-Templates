@@ -2,11 +2,12 @@
 using ECommon.Components;
 using ENode.Commanding;
 using ENode.Configurations;
+using ENode.Domain;
 using ENode.Eventing;
-using ENode.Infrastructure;
 using ENode.Kafka;
 using ENode.Kafka.Consumers;
 using ENode.Kafka.Producers;
+using ENode.Messaging;
 using Jane.Utils;
 using System.Collections.Generic;
 using System.Net;
@@ -21,22 +22,22 @@ namespace BoundedContext.UnitTests
         private static CommandConsumer _commandConsumer;
         private static CommandResultProcessor _commandResultProcessor;
         private static CommandService _commandService;
+        private static DomainExceptionConsumer _domainExceptionConsumer;
+        private static DomainExceptionPublisher _domainExceptionPublisher;
         private static DomainEventConsumer _eventConsumer;
         private static DomainEventPublisher _eventPublisher;
-        private static PublishableExceptionConsumer _publishableExceptionConsumer;
-        private static PublishableExceptionPublisher _publishableExceptionPublisher;
 
         public static ENodeConfiguration ShutdownKafka(this ENodeConfiguration enodeConfiguration)
         {
             _commandService.Shutdown();
             _eventPublisher.Shutdown();
             _applicationMessagePublisher.Shutdown();
-            _publishableExceptionPublisher.Shutdown();
+            _domainExceptionPublisher.Shutdown();
 
             _commandConsumer.Shutdown();
             _eventConsumer.Shutdown();
             _applicationMessageConsumer.Shutdown();
-            _publishableExceptionConsumer.Shutdown();
+            _domainExceptionConsumer.Shutdown();
 
             return enodeConfiguration;
         }
@@ -64,10 +65,10 @@ namespace BoundedContext.UnitTests
                 BrokerEndPoints = kafkaConfig.BrokerEndPoints,
                 GroupName = "BoundedContextApplicationMessageConsumerGroup"
             };
-            var publishableExceptionConsumerSetting = new ConsumerSetting
+            var domainExceptionConsumerSetting = new ConsumerSetting
             {
                 BrokerEndPoints = kafkaConfig.BrokerEndPoints,
-                GroupName = "BoundedContextPublishableExceptionConsumerGroup"
+                GroupName = "BoundedContextDomainExceptionConsumerGroup"
             };
 
             _commandConsumer = new CommandConsumer()
@@ -88,8 +89,8 @@ namespace BoundedContext.UnitTests
                 {
                     BoundedContextTopics.BoundedContextDomainApplicationMessageTopic
                 });
-            _publishableExceptionConsumer = new PublishableExceptionConsumer()
-                .InitializeKafka(publishableExceptionConsumerSetting)
+            _domainExceptionConsumer = new DomainExceptionConsumer()
+                .InitializeKafka(domainExceptionConsumerSetting)
                 .Subscribe(new List<string>()
                 {
                     BoundedContextTopics.BoundedContextDomainExceptionTopic
@@ -100,18 +101,18 @@ namespace BoundedContext.UnitTests
             _commandService.InitializeKafka(producerSetting, _commandResultProcessor);
             _eventPublisher.InitializeKafka(producerSetting);
             _applicationMessagePublisher.InitializeKafka(producerSetting);
-            _publishableExceptionPublisher.InitializeKafka(producerSetting);
+            _domainExceptionPublisher.InitializeKafka(producerSetting);
 
             _commandConsumer.Start();
             _eventConsumer.Start();
             _applicationMessageConsumer.Start();
-            _publishableExceptionConsumer.Start();
+            _domainExceptionConsumer.Start();
 
             _commandResultProcessor.Start();
             _commandService.Start();
             _eventPublisher.Start();
             _applicationMessagePublisher.Start();
-            _publishableExceptionPublisher.Start();
+            _domainExceptionPublisher.Start();
 
             return enodeConfiguration;
         }
@@ -132,8 +133,8 @@ namespace BoundedContext.UnitTests
             _applicationMessagePublisher = new ApplicationMessagePublisher();
             configuration.SetDefault<IMessagePublisher<IApplicationMessage>, ApplicationMessagePublisher>(_applicationMessagePublisher);
 
-            _publishableExceptionPublisher = new PublishableExceptionPublisher();
-            configuration.SetDefault<IMessagePublisher<IPublishableException>, PublishableExceptionPublisher>(_publishableExceptionPublisher);
+            _domainExceptionPublisher = new DomainExceptionPublisher();
+            configuration.SetDefault<IMessagePublisher<IDomainException>, DomainExceptionPublisher>(_domainExceptionPublisher);
             return enodeConfiguration;
         }
     }
