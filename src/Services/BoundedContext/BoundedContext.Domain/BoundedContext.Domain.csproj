@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ENode" Version="2.9.8" />
+    <PackageReference Include="ENode" Version="2.9.9" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\common\src\Jane\Jane.csproj" />
