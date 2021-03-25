@@ -40,7 +40,7 @@ namespace BoundedContext.Api
             //Config Exceptionless
             if (env.IsProduction() && !JaneConfiguration.Instance.Root["Exceptionless:ApiKey"].IsNullOrEmpty())
             {
-                app.UseExceptionless(JaneConfiguration.Instance.Root);
+                app.UseExceptionless();
             }
 
             app.UseProcessingTimeHeader();
@@ -159,6 +159,13 @@ namespace BoundedContext.Api
         {
             //Configure Jane
             JaneConfiguration.Create();
+
+            //Config Exceptionless
+            if (!JaneConfiguration.Instance.Root["Exceptionless:ApiKey"].IsNullOrEmpty())
+            {
+                services.AddExceptionless(config => config.ReadFromConfiguration(JaneConfiguration.Instance.Root));
+            }
+
             services.AddJaneAspNetCore();
 
             //Compression
