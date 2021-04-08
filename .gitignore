@@ -11,7 +11,7 @@ packages
 *.sln.docstates
 
 # Template files
-smartlearn-template.json
+*-template.json
 
 # Build results
 [Dd]ebug/

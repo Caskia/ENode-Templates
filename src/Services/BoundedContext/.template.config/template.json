@@ -34,6 +34,11 @@
             "defaultValue": "",
             "replaces": "JwtAudience"
         },
+        "mongoDbHost": {
+            "type": "parameter",
+            "defaultValue": "mongo",
+            "replaces": "MongoDbHost"
+        },
         "mongoDbDatabaseName": {
             "type": "parameter",
             "defaultValue": "",
@@ -48,6 +53,11 @@
             "type": "parameter",
             "defaultValue": "",
             "replaces": "MongoDbPassword"
+        },
+        "mySqlHost": {
+            "type": "parameter",
+            "defaultValue": "mysql",
+            "replaces": "MySqlHost"
         },
         "mySqlDatabaseName": {
             "type": "parameter",
@@ -64,20 +74,35 @@
             "defaultValue": "",
             "replaces": "MySqlPassword"
         },
+        "redisHost": {
+            "type": "parameter",
+            "defaultValue": "redis",
+            "replaces": "RedisHost"
+        },
         "redisLockPrefix": {
             "type": "parameter",
             "defaultValue": "",
             "replaces": "RedisLockPrefix"
         },
-        "redisPassword": {
+        "kafkaHost": {
             "type": "parameter",
-            "defaultValue": "",
-            "replaces": "RedisPassword"
+            "defaultValue": "kafka",
+            "replaces": "KafkaHost"
         },
         "oAuthClientSecret": {
             "type": "parameter",
             "defaultValue": "",
             "replaces": "TPOAuthClientSecret"
+        },
+        "exceptionlessServerUrl":{
+            "type": "parameter",
+            "defaultValue": "",
+            "replaces": "ExceptionlessServerUrl"
+        },
+        "exceptionlessApiKey":{
+            "type": "parameter",
+            "defaultValue": "",
+            "replaces": "ExceptionlessApiKey"
         }
     }
 }
