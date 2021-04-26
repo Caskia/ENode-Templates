@@ -74,6 +74,11 @@
             "defaultValue": "",
             "replaces": "MySqlPassword"
         },
+        "mySqlPasswordLocal": {
+            "type": "parameter",
+            "defaultValue": "",
+            "replaces": "MySqlPasswordLocal"
+        },
         "redisHost": {
             "type": "parameter",
             "defaultValue": "redis",
